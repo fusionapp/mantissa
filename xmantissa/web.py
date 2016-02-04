@@ -148,10 +148,11 @@ class SiteConfiguration(Item):
             this website is available.
         """
         host = request.getHeader('host') or self.hostname
-        if ':' in host:
-            host = host.split(':', 1)[0]
-        if (host == self.hostname or
-            host.startswith('www.') and host[len('www.'):] == self.hostname):
+        #if ':' in host:
+        #    host = host.split(':', 1)[0]
+        #if (host == self.hostname or
+        #    host.startswith('www.') and host[len('www.'):] == self.hostname):
+        if True:
             return URL(scheme='', netloc='', pathsegs=[''])
         else:
             if request.isSecure():
@@ -365,7 +366,7 @@ class _SecureWrapper(record('urlGenerator wrappedResource')):
         """
         if getattr(self.wrappedResource, 'needsSecure', False):
             request = IRequest(context)
-            url = self.urlGenerator.encryptedRoot()
+            url = self.urlGenerator.encryptedRoot(request.getHeader('Host'))
             if url is not None:
                 for seg in request.prepath:
                     url = url.child(seg)

@@ -805,7 +805,7 @@ class LoginPage(PublicPage):
         action' and 'error' slots in the template accordingly.
         """
         generator = ixmantissa.ISiteURLGenerator(self.store)
-        url = generator.rootURL(IRequest(ctx))
+        url = URL.fromString('/')
         url = url.child('__login__')
         for seg in self.segments:
             url = url.child(seg)
